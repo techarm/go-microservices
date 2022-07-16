@@ -34,7 +34,7 @@
     <script>
         let brokerBtn = document.getElementById("brokerBtn");
         let output = document.getElementById("output");
-        let sent = document.getElementById("playload");
+        let sent = document.getElementById("payload");
         let received = document.getElementById("received");
 
         brokerBtn.addEventListener("click", function() {
@@ -54,7 +54,8 @@
                     }
                 })
                 .catch((error) => {
-                    output.innerHTML += `<br<br>Error: ${error}`
+                    console.log(error);
+                    output.innerHTML += `<br><br>Error: ${error}`
                 })
         })
     </script>
