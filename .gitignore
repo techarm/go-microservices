@@ -13,3 +13,7 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+broker-service/brokerApp
+
+front-end/frontApp
