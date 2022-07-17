@@ -24,6 +24,7 @@ func (app *Config) routers() http.Handler {
 	mux.Use(middleware.Heartbeat("/ping"))
 
 	mux.Post("/", app.Broker)
+	mux.Post("/handle", app.HandleSubmission)
 
 	return mux
 }
