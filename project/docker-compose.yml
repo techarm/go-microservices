@@ -27,7 +27,7 @@ services:
     volumes:
       - ./db-data/mongo/:/data/db
 
-  broker-server:
+  broker-service:
     build:
       context: ./../broker-service
       dockerfile: ./../broker-service/broker-service.dockerfile
@@ -38,7 +38,7 @@ services:
       mode: replicated
       replicas: 1
 
-  logger-server:
+  logger-service:
     build:
       context: ./../logger-service
       dockerfile: ./../logger-service/logger-service.dockerfile

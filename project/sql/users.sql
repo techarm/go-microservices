@@ -1,0 +1,1 @@
+insert into "users" ("created_at", "email", "first_name", "id", "last_name", "password", "updated_at", "user_active") values ('2022-07-17 00:00:00', 'admin@techarm.com', 'Admin', 2, 'User', '$2a$12$1zGLuYDDNvATh4RA4avbKuheAMpb1svexSzrQm7up.bnpwQHs0jNe', '2022-07-17 00:00:00', 1);

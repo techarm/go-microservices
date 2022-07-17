@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	webPort   = "8088"
+	webPort   = "80"
 	rpcPort   = "5001"
 	mongoURL  = "mongodb://mongo:27017"
 	gRrpcPort = "50001"
