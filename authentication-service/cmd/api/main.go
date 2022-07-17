@@ -15,7 +15,7 @@ import (
 	"github.com/techarm/go-microservices/authentication/data"
 )
 
-const webPort = "8080"
+const webPort = "80"
 
 var counts int64
 

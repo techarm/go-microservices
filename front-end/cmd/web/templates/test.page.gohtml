@@ -49,7 +49,7 @@
             }
 
             const headers = new Headers();
-            headers.append("Content-Type", "application/json");
+            {{/* headers.append("Content-Type", "application/json"); */}}
             
             const body = {
                 method: "POST",
@@ -57,7 +57,7 @@
                 headers: headers
             }
 
-            fetch("http:\/\/localhost:8080/handle", body)
+            fetch("http://localhost:8080/handle", body)
                 .then((response) => response.json())
                 .then((data) => {
                     sent.innerHTML = JSON.stringify(payload, undefined, 4);
@@ -79,7 +79,7 @@
                 method: "POST",
             }
 
-            fetch("http:\/\/localhost:8080", body)
+            fetch("http://localhost:8080", body)
                 .then((response) => response.json())
                 .then((data) => {
                     sent.innerHTML = "empty post request";
