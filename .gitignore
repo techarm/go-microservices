@@ -14,8 +14,8 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
+project/db-data
 broker-service/brokerApp
-
 front-end/frontApp
-
 authentication-service/authApp
+logger-service/loggerApp

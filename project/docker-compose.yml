@@ -16,6 +16,37 @@ services:
     volumes:
       - ./db-data/postgres/:/var/lib/postgresql/data/
   
+  mongo:
+    image: 'mongo:4.2.16-bionic'
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: logs
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./db-data/mongo/:/data/db
+
+  broker-server:
+    build:
+      context: ./../broker-service
+      dockerfile: ./../broker-service/broker-service.dockerfile
+    restart: always
+    ports:
+      - "8080:80"
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  logger-server:
+    build:
+      context: ./../logger-service
+      dockerfile: ./../logger-service/logger-service.dockerfile
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+
   authentication-service:
     build:
       context: ./../authentication-service
@@ -28,14 +59,3 @@ services:
       replicas: 1
     environment:
       DSN: "host=postgres port=5432 user=postgres password=password dbname=users sslmode=disable timezone=Asia/Tokyo connect_timeout=5"
-
-  broker-server:
-    build:
-      context: ./../broker-service
-      dockerfile: ./../broker-service/broker-service.dockerfile
-    restart: always
-    ports:
-      - "8080:80"
-    deploy:
-      mode: replicated
-      replicas: 1
