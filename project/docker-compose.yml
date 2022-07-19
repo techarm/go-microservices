@@ -65,3 +65,12 @@ services:
       replicas: 1
     environment:
       DSN: "host=postgres port=5432 user=postgres password=password dbname=users sslmode=disable timezone=Asia/Tokyo connect_timeout=5"
+
+  mail-service:
+    build:
+      context: ./../mail-service
+      dockerfile: ./../mail-service/mail-service.dockerfile
+    restart: always
+    depoly:
+      mode: replicated
+      replicas: 1
