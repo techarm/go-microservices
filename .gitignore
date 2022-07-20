@@ -20,3 +20,4 @@ front-end/frontApp
 authentication-service/authApp
 logger-service/loggerApp
 mail-service/mailerApp
+listener-service/listenerApp
