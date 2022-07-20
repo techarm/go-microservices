@@ -6,6 +6,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+
+	"github.com/techarm/go-microservices/broker/event"
 )
 
 type RequestPayload struct {
@@ -54,7 +56,8 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 	case "auth":
 		app.authenticate(w, requestPayload.Auth)
 	case "log":
-		app.logItem(w, requestPayload.Log)
+		// app.logItem(w, requestPayload.Log)
+		app.logEventViaRabbot(w, requestPayload.Log)
 	case "mail":
 		app.sendMail(w, requestPayload.Mail)
 	default:
@@ -145,6 +148,20 @@ func (app *Config) logItem(w http.ResponseWriter, entry LogPayload) {
 	app.writeJSON(w, http.StatusOK, payload)
 }
 
+func (app *Config) logEventViaRabbot(w http.ResponseWriter, l LogPayload) {
+	err := app.pushToQueue(l.Name, l.Data)
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+
+	var payload jsonResponse
+	payload.Error = false
+	payload.Message = "logged via RabbitMQ"
+
+	app.writeJSON(w, http.StatusOK, payload)
+}
+
 func (app *Config) sendMail(w http.ResponseWriter, msg MailPayload) {
 	jsonData, _ := json.MarshalIndent(msg, "", "  ")
 
@@ -176,4 +193,24 @@ func (app *Config) sendMail(w http.ResponseWriter, msg MailPayload) {
 	payload.Message = fmt.Sprintf("Message sent to %s", msg.ToAddress)
 
 	app.writeJSON(w, http.StatusOK, payload)
+}
+
+func (app *Config) pushToQueue(name, msg string) error {
+	emmiter, err := event.NewEventEmitter(app.Rabbit)
+	if err != nil {
+		return nil
+	}
+
+	payload := LogPayload{
+		Name: name,
+		Data: msg,
+	}
+
+	j, _ := json.MarshalIndent(&payload, "", "  ")
+	err = emmiter.Push(string(j), "log.INFO")
+	if err != nil {
+		return nil
+	}
+
+	return nil
 }
