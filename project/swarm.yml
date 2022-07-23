@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  broken-service:
+  broker-service:
     image: techarm/broker-service:1.0.0
     ports:
       - "8080:80"
