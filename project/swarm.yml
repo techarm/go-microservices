@@ -1,6 +1,29 @@
 version: '3'
 
 services:
+
+  caddy:
+    image: techarm/micro-caddy:1.0.0
+    deploy:
+      mode: replicated
+      replicas: 1
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+
+  front-end:
+    image: 'techarm/front-service:1.0.1'
+    # ports:
+    #   - "8081:8081"
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      BROKER_URL: "http://backend"
+
   broker-service:
     image: techarm/broker-service:1.0.0
     # ports:
@@ -83,10 +106,7 @@ services:
     volumes:
       - ./db-data/postgres/:/var/lib/postgresql/data/
 
-  front-end:
-    image: 'front-service:1.0.0'
-    # ports:
-    #   - "8081:8081"
-    deploy:
-      mode: replicated
-      replicas: 1
+volumes:
+  caddy_data:
+    external: true
+  caddy_config:
