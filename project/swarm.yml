@@ -15,9 +15,9 @@ services:
       - caddy_config:/config
 
   front-end:
-    image: 'techarm/front-service:1.0.1'
-    # ports:
-    #   - "8081:8081"
+    image: 'techarm/front-service:1.0.4'
+    ports:
+      - "8082:8082"
     deploy:
       mode: replicated
       replicas: 1

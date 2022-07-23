@@ -66,8 +66,8 @@ build_front:
 
 ## start: starts the front end
 start: build_front
-	@echo "Starting front end"
-	cd ../front-end && ./${FRONT_END_BINARY} &
+	@echo "Starting front end" 
+	cd ../front-end && env BROKER_URL=http://localhost:8080 ./${FRONT_END_BINARY} &
 
 ## stop: stop the front end
 stop:
