@@ -14,10 +14,15 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
-project/db-data
 broker-service/brokerApp
 front-end/frontApp
 authentication-service/authApp
 logger-service/loggerApp
 mail-service/mailerApp
 listener-service/listenerApp
+
+project/db-data/mongo/
+
+project/db-data/rabbitmq/
+
+project/db-data/postgres/
