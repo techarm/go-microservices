@@ -63,3 +63,46 @@
     ```
     docker service scale myapp_broker-service=0
     ```
+
+### Kubernetes
+- installing minikube
+    To install the latest minikube stable release on x86-64 macOS using binary download:
+    ```
+    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+    sudo install minikube-darwin-amd64 /usr/local/bin/minikube
+    ```
+    ※ https://minikube.sigs.k8s.io/docs/start/
+
+- installing kebectl
+    ```
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
+    chmod +x ./kubectl
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    sudo chown root: /usr/local/bin/kubectl
+    kubectl version --client
+    ```
+
+- installing a cluster
+    ```
+    minikube start --nodes=2
+    ```
+
+- minikube commands
+    ```
+    minikube status
+    minikube start
+    minikube stop
+    minikube dashboard
+    ```
+
+- kubectl commands
+    ```
+    kubectl get pods -A  # show all pods
+    kubectl get pods
+    kubectl get svc
+    kubectl get deployments
+
+    kubectl apply -f k8s/rabbit.yml
+    kubectl delete deployments rabbitmq
+    kubectl delete svc rabbitmq
+    ```
